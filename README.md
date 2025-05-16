@@ -160,25 +160,6 @@ pytest
 pytest --cov=kali_mcp_server
 ```
 
-### 📝 Code Quality
-
-```bash
-# Type checking
-pyright
-
-# Linting
-ruff check .
-
-# Formatting
-ruff format .
-```
-
-## 📚 Documentation
-
-For more detailed documentation, see:
-
-- [DOCS.md](DOCS.md) - Complete project documentation
-- [CLAUDE.md](CLAUDE.md) - Guidance for Claude Code
 
 ## 🙏 Acknowledgements
 
