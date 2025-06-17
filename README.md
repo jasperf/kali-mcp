@@ -90,7 +90,7 @@ Fetch and analyze web content from specified URLs.
 
 ### 📈 `resources` - List Available Resources
 
-Get information about the system and available commands.
+Get information about the system and available commands. (The AI can use these resources to run the commands on you behalf using Natural Language.)
 
 ```
 /resources
