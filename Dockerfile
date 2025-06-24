@@ -21,8 +21,18 @@ RUN apt-get update && apt-get install -y \
     dirb \
     nikto \
     sqlmap \
+    testssl.sh \
+    amass \
+    httpx-toolkit \
+    subfinder \
+    gospider \
+    golang \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# Install waybackurls using Go
+RUN go install github.com/tomnomnom/waybackurls@latest && \
+    cp /root/go/bin/waybackurls /usr/local/bin/
 
 # Create a non-root user to run the application
 RUN groupadd -r mcpuser && useradd -r -g mcpuser -m -d /home/mcpuser mcpuser

@@ -61,6 +61,7 @@ python_files = "test_*.py"
 dev-dependencies = [
     "pyright>=1.1.378", 
     "pytest>=8.3.3", 
+    "pytest-asyncio>=0.24.0",
     "ruff>=0.6.9",
     "black>=24.0.0"
 ]
