@@ -16,7 +16,7 @@ This project provides a Docker containerized MCP server that runs on Kali Linux,
 - **🛡️ Command Validation**: Commands are validated against an allowlist for security
 - **🌐 Web Content Fetching**: Retrieve and analyze web content
 - **📊 Resource Information**: Comprehensive system resource details and command examples
-- **👤 Security Focus**: Running as non-root user with appropriate permissions
+- **⚡ Root Privileges**: Container runs as root to enable privileged network operations (SYN scans, OS detection, etc.)
 
 ### 🔧 Pre-installed Security Tools
 
@@ -415,13 +415,34 @@ Perform comprehensive web application security audit.
 
 ## 🔒 Security Considerations
 
-This container provides access to powerful security tools. Please observe the following:
+This container provides access to powerful security tools and runs with root privileges. Please observe the following:
 
-- Use responsibly and only in controlled environments
-- The container is designed to be run locally and should not be exposed to the internet
+### ⚠️ Important Security Notes
+
+- **Container runs as ROOT**: This enables privileged operations but reduces isolation
+- **Use only in controlled environments**: Not recommended for shared or untrusted networks
+- **Do not expose to the internet**: The container is designed for local use only
 - Commands are validated against an allowlist for security
-- The server runs as a non-root user inside the container
 - Only use this tool for legitimate security testing with proper authorization
+
+### 🛡️ Root Privileges Impact
+
+**Capabilities Enabled:**
+- Full Nmap scan capabilities (SYN scans with `-sS`, OS detection with `-O`, version detection with `-sV`)
+- Raw socket access for packet crafting
+- Low-level network operations
+- All security tools function without "Operation not permitted" errors
+
+**Security Risks:**
+- Reduced container isolation compared to non-root execution
+- Potential for container escape if vulnerabilities exist
+- Greater impact if the container is compromised
+
+**Recommendations:**
+- Use only on isolated development machines or dedicated security testing VMs
+- Consider using a VPS deployment with proper hardening (see `docs/VPS_DEPLOYMENT.md`)
+- Avoid running on production systems or shared infrastructure
+- Review the [VPS Deployment Guide](docs/VPS_DEPLOYMENT.md) for production use cases with additional security measures
 
 ## 📋 Requirements
 
