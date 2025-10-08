@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2025-10-08
+
+### Added
+- VPS deployment guide in `docs/VPS_DEPLOYMENT.md`
+  - Complete guide for deploying with root privileges on Linux VPS
+  - Three deployment options (privileged Docker, direct installation, Docker Compose)
+  - Comprehensive security measures and hardening guide
+  - SSH tunneling setup for secure remote access
+  - Firewall configuration and access control
+  - Systemd service configuration for auto-start
+  - Claude Desktop remote connection options
+  - Advanced Nmap usage with full root capabilities
+  - Performance benchmarks (4x faster full port scans)
+  - Cost optimization tips and VPS provider recommendations
+  - Legal and ethical considerations for VPS scanning
+
+### Documentation
+- Detailed comparison: non-root vs. root Nmap capabilities
+- Production deployment patterns with HTTPS reverse proxy
+- Monitoring and logging setup
+- Security best practices for exposed MCP servers
+
 ## [1.0.2] - 2025-10-08
 
 ### Added
@@ -82,7 +104,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Server runs as non-root user (kali-user)
 - Controlled environment execution
 - Input validation for all tools
-
-[1.0.2]: https://github.com/yourusername/kali-mcp-server/compare/v1.0.1...v1.0.2
-[1.0.1]: https://github.com/yourusername/kali-mcp-server/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/yourusername/kali-mcp-server/releases/tag/v1.0.0
