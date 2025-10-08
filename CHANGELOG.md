@@ -18,11 +18,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Advanced configuration (environment variables, network modes)
   - Security considerations for Claude Code integration
 
+### Fixed
+- **Claude Code CLI command syntax** - Added `--` separator to prevent `-i` flag parsing error
+  - Corrected command: `claude mcp add --transport stdio kali-mcp-server docker -- run -i ...`
+  - Prevents "unknown option '-i'" error when adding MCP server
+
 ### Documentation
 - Complete guide for integrating Kali MCP server with Claude Code CLI
 - Instructions for managed MCP config and project-scope `.mcp.json`
 - Container lifecycle management and monitoring
 - Verification steps and common error solutions
+- Added note explaining `--` separator usage in CLI commands
 
 ## [1.0.5] - 2025-10-08
 

@@ -85,7 +85,11 @@ For Claude Code CLI integration, see the [Claude Code Integration Guide](docs/CL
 
 **Quick setup:**
 ```bash
-claude mcp add --transport stdio kali-mcp-server docker run -i kali-mcp-server python -m kali_mcp_server --transport stdio
+# Add the MCP server (note: use -- to separate args)
+claude mcp add --transport stdio kali-mcp-server docker -- run -i kali-mcp-server python -m kali_mcp_server --transport stdio
+
+# Verify it was added
+claude mcp list
 ```
 
 ## 🛠️ Available MCP Tools
