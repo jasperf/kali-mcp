@@ -79,6 +79,15 @@ docker run -p 8000:8000 kali-mcp-server
    Can you run a quick nmap scan on localhost using the run tool?
    ```
 
+### 💻 Connecting to Claude Code
+
+For Claude Code CLI integration, see the [Claude Code Integration Guide](docs/CLAUDE_CODE.md).
+
+**Quick setup:**
+```bash
+claude mcp add --transport stdio kali-mcp-server docker run -i kali-mcp-server python -m kali_mcp_server --transport stdio
+```
+
 ## 🛠️ Available MCP Tools
 
 The server provides several tools through the MCP protocol. In Claude Desktop, these tools are invoked automatically by the AI - you simply ask Claude in natural language, and it will use the appropriate tool.

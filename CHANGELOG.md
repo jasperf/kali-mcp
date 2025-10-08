@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2025-10-08
+
+### Added
+- **Claude Code integration guide** in `docs/CLAUDE_CODE.md`
+  - Three configuration options: CLI (recommended), manual, and project-specific
+  - Container lifecycle explanation (on-demand startup, automatic cleanup)
+  - Persistent sessions setup with volume mounts
+  - Usage examples with natural language requests
+  - Comprehensive troubleshooting guide
+  - Comparison table: Claude Desktop vs Claude Code
+  - Advanced configuration (environment variables, network modes)
+  - Security considerations for Claude Code integration
+
+### Documentation
+- Complete guide for integrating Kali MCP server with Claude Code CLI
+- Instructions for managed MCP config and project-scope `.mcp.json`
+- Container lifecycle management and monitoring
+- Verification steps and common error solutions
+
 ## [1.0.5] - 2025-10-08
 
 ### Changed
