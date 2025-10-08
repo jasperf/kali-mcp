@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2025-10-08
+
+### Added
+- Comprehensive Nmap usage guide in `docs/NMAP.md`
+  - Common permission issues and solutions ("Operation not permitted" error)
+  - Permission limitations (what requires root vs. what works without)
+  - Recommended scan types for non-root usage
+  - Best practices for using `-sT` TCP connect scans
+  - Real-world examples with expected output
+  - Troubleshooting guide for common scan issues
+  - Advanced usage with MCP session management
+  - Integration patterns with other security tools
+
+### Documentation
+- Added detailed explanation of "Operation not permitted" error
+- Documented why sudo is not allowed in the MCP server
+- Provided workarounds for all restricted Nmap features
+- Included timing templates and output format options
+
 ## [1.0.1] - 2025-10-08
 
 ### Changed
@@ -64,5 +83,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Controlled environment execution
 - Input validation for all tools
 
+[1.0.2]: https://github.com/yourusername/kali-mcp-server/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/yourusername/kali-mcp-server/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/yourusername/kali-mcp-server/releases/tag/v1.0.0
