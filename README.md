@@ -8,7 +8,7 @@ A production-ready MCP (Model Context Protocol) server running in a Kali Linux D
 
 ## 📋 Overview
 
-This project provides a Docker containerized MCP server that runs on Kali Linux, giving AI assistants (like Claude) access to a full suite of security and penetration testing tools. The server communicates via Server-Sent Events (SSE) and allows AI to execute commands in a controlled environment with appropriate security measures.
+This project provides a Docker containerized MCP server that runs on Kali Linux, giving AI assistants (like Claude) access to a full suite of security and penetration testing tools. The server supports both stdio transport (for Claude Desktop integration) and SSE transport (for standalone/VPS deployment), allowing AI to execute commands in a controlled environment with appropriate security measures.
 
 ## ✨ Features
 
@@ -81,15 +81,18 @@ docker run -p 8000:8000 kali-mcp-server
 
 ## 🛠️ Available MCP Tools
 
-The server provides several tools through the MCP protocol:
+The server provides several tools through the MCP protocol. In Claude Desktop, these tools are invoked automatically by the AI - you simply ask Claude in natural language, and it will use the appropriate tool.
 
 ### 💻 `run` - Execute Commands
 
 Run security tools and commands in the Kali Linux environment.
 
+**Example request to Claude:**
 ```
-/run nmap -F localhost
+Can you run nmap -F localhost?
 ```
+
+Claude will automatically use the `run` tool with the command `nmap -F localhost`.
 
 Commands are validated against an allowlist for security. Long-running commands will be executed in the background with results saved to an output file.
 
@@ -97,25 +100,28 @@ Commands are validated against an allowlist for security. Long-running commands 
 
 Fetch and analyze web content from specified URLs.
 
+**Example request to Claude:**
 ```
-/fetch https://example.com
+Can you fetch https://example.com?
 ```
 
 ### 📈 `resources` - List Available Resources
 
-Get information about the system and available commands. (The AI can use these resources to run the commands on you behalf using Natural Language.)
+Get information about the system and available commands. The AI automatically uses these resources to understand available commands.
 
+**Example request to Claude:**
 ```
-/resources
+What security tools are available?
 ```
 
 ### 🚀 `vulnerability_scan` - Automated Vulnerability Assessment
 
 Perform automated vulnerability assessment with multiple tools.
 
+**Example requests to Claude:**
 ```
-/vulnerability_scan target=127.0.0.1 scan_type=quick
-/vulnerability_scan target=example.com scan_type=comprehensive
+Can you run a quick vulnerability scan on 127.0.0.1?
+Run a comprehensive vulnerability scan on example.com
 ```
 
 **Scan Types:**
@@ -128,9 +134,10 @@ Perform automated vulnerability assessment with multiple tools.
 
 Perform comprehensive web application discovery and enumeration.
 
+**Example requests to Claude:**
 ```
-/web_enumeration target=http://example.com enumeration_type=full
-/web_enumeration target=example.com enumeration_type=aggressive
+Perform full web enumeration on http://example.com
+Run aggressive web enumeration on example.com
 ```
 
 **Enumeration Types:**
@@ -142,9 +149,10 @@ Perform comprehensive web application discovery and enumeration.
 
 Perform multi-stage network reconnaissance and discovery.
 
+**Example requests to Claude:**
 ```
-/network_discovery target=192.168.1.0/24 discovery_type=comprehensive
-/network_discovery target=example.com discovery_type=stealth
+Do comprehensive network discovery on 192.168.1.0/24
+Run stealth network discovery on example.com
 ```
 
 **Discovery Types:**
@@ -156,9 +164,10 @@ Perform multi-stage network reconnaissance and discovery.
 
 Search for exploits using searchsploit and other exploit databases.
 
+**Example requests to Claude:**
 ```
-/exploit_search search_term=apache search_type=web
-/exploit_search search_term=CVE-2021-44228 search_type=all
+Search for Apache web exploits
+Find exploits for CVE-2021-44228
 ```
 
 **Search Types:**
@@ -172,9 +181,10 @@ Search for exploits using searchsploit and other exploit databases.
 
 Save content to a timestamped file for evidence collection.
 
+**Example requests to Claude:**
 ```
-/save_output content="Scan results here" filename=my_scan category=scan
-/save_output content="Enumeration data" category=enum
+Save these scan results to a file called my_scan
+Save this enumeration data as evidence
 ```
 
 **Categories:**
@@ -187,9 +197,10 @@ Save content to a timestamped file for evidence collection.
 
 Generate a structured report from findings.
 
+**Example requests to Claude:**
 ```
-/create_report title="Security Assessment Report" findings="Vulnerabilities found..." report_type=markdown
-/create_report title="Network Scan Results" findings="Open ports..." report_type=json
+Create a markdown report titled "Security Assessment Report" with these findings
+Generate a JSON report for the network scan results
 ```
 
 **Report Types:**
@@ -201,9 +212,10 @@ Generate a structured report from findings.
 
 Analyze a file using various tools (file type, strings, hash).
 
+**Example requests to Claude:**
 ```
-/file_analysis filepath=./suspicious_file
-/file_analysis filepath=/path/to/downloaded/file
+Analyze the file at ./suspicious_file
+Can you analyze /path/to/downloaded/file?
 ```
 
 **Analysis includes:**
@@ -217,9 +229,10 @@ Analyze a file using various tools (file type, strings, hash).
 
 Download a file from a URL and save it locally.
 
+**Example requests to Claude:**
 ```
-/download_file url=https://example.com/file.txt filename=downloaded_file
-/download_file url=https://example.com/script.sh
+Download https://example.com/file.txt and save it as downloaded_file
+Download https://example.com/script.sh
 ```
 
 **Features:**
@@ -232,9 +245,10 @@ Download a file from a URL and save it locally.
 
 Create a new pentest session with name, description, and target.
 
+**Example requests to Claude:**
 ```
-/session_create session_name="web_app_test" description="Web application security assessment" target="example.com"
-/session_create session_name="network_scan" target="192.168.1.0/24"
+Create a session called "web_app_test" for security assessment of example.com
+Start a new session for scanning 192.168.1.0/24
 ```
 
 **Features:**
@@ -246,8 +260,9 @@ Create a new pentest session with name, description, and target.
 
 List all pentest sessions with metadata and status.
 
+**Example request to Claude:**
 ```
-/session_list
+Show me all sessions
 ```
 
 **Shows:**
@@ -260,8 +275,9 @@ List all pentest sessions with metadata and status.
 
 Switch to a different pentest session.
 
+**Example request to Claude:**
 ```
-/session_switch session_name="web_app_test"
+Switch to the web_app_test session
 ```
 
 **Features:**
@@ -273,8 +289,9 @@ Switch to a different pentest session.
 
 Show current session status and summary.
 
+**Example request to Claude:**
 ```
-/session_status
+What's the current session status?
 ```
 
 **Shows:**
@@ -287,8 +304,9 @@ Show current session status and summary.
 
 Delete a pentest session and all its evidence.
 
+**Example request to Claude:**
 ```
-/session_delete session_name="old_session"
+Delete the old_session
 ```
 
 **Safety Features:**
@@ -300,8 +318,9 @@ Delete a pentest session and all its evidence.
 
 Show command/evidence history for the current session.
 
+**Example request to Claude:**
 ```
-/session_history
+Show me the session history
 ```
 
 **Shows:**
@@ -314,8 +333,9 @@ Show command/evidence history for the current session.
 ### 🕷️ Spider Website
 Comprehensive web crawling and spidering using gospider.
 
-```bash
-/spider_website url=https://example.com depth=2 threads=10
+**Example request to Claude:**
+```
+Spider https://example.com with depth 2 and 10 threads
 ```
 
 **Parameters:**
@@ -326,8 +346,9 @@ Comprehensive web crawling and spidering using gospider.
 ### 📝 Form Analysis
 Discover and analyze web forms for security testing.
 
-```bash
-/form_analysis url=https://example.com scan_type=comprehensive
+**Example request to Claude:**
+```
+Do a comprehensive form analysis on https://example.com
 ```
 
 **Parameters:**
@@ -337,8 +358,9 @@ Discover and analyze web forms for security testing.
 ### 📋 Header Analysis
 Analyze HTTP headers for security information and misconfigurations.
 
-```bash
-/header_analysis url=https://example.com include_security=true
+**Example request to Claude:**
+```
+Analyze the headers of https://example.com including security headers
 ```
 
 **Parameters:**
@@ -348,8 +370,9 @@ Analyze HTTP headers for security information and misconfigurations.
 ### 🔐 SSL Analysis
 Perform SSL/TLS security assessment using testssl.sh.
 
-```bash
-/ssl_analysis url=example.com port=443
+**Example request to Claude:**
+```
+Run SSL analysis on example.com
 ```
 
 **Parameters:**
@@ -359,8 +382,9 @@ Perform SSL/TLS security assessment using testssl.sh.
 ### 🔍 Subdomain Enumeration
 Perform subdomain enumeration using multiple tools (subfinder, amass, waybackurls).
 
-```bash
-/subdomain_enum url=example.com enum_type=comprehensive
+**Example request to Claude:**
+```
+Do comprehensive subdomain enumeration on example.com
 ```
 
 **Parameters:**
@@ -370,8 +394,9 @@ Perform subdomain enumeration using multiple tools (subfinder, amass, waybackurl
 ### 🔍 Web Audit
 Perform comprehensive web application security audit.
 
-```bash
-/web_audit url=https://example.com audit_type=comprehensive
+**Example request to Claude:**
+```
+Run a comprehensive web audit on https://example.com
 ```
 
 **Parameters:**

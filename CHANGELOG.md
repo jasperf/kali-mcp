@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.5] - 2025-10-08
+
+### Changed
+- **Updated README.md documentation for clarity**
+  - Clarified transport modes: stdio (Claude Desktop) vs. SSE (standalone/VPS)
+  - Replaced confusing `/tool_name` syntax with natural language examples
+  - Updated all tool usage examples to show actual user interaction patterns
+  - Explained that MCP tools are automatically invoked by Claude, not typed by users
+
+### Documentation
+- Overview now mentions both stdio and SSE transport modes and their use cases
+- All tool examples now show natural language requests instead of slash command notation
+- Improved user experience by showing real-world Claude Desktop interaction patterns
+
 ## [1.0.4] - 2025-10-08
 
 ### Changed
