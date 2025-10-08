@@ -22,8 +22,10 @@ Claude Code is Anthropic's official CLI tool that brings Claude's capabilities t
 Add the Kali MCP server using the Claude Code CLI:
 
 ```bash
-claude mcp add --transport stdio kali-mcp-server docker run -i kali-mcp-server python -m kali_mcp_server --transport stdio
+claude mcp add --transport stdio kali-mcp-server docker -- run -i kali-mcp-server python -m kali_mcp_server --transport stdio
 ```
+
+**Note:** The `--` separator tells the CLI to treat everything after `docker` as arguments, preventing `-i` from being interpreted as a flag.
 
 **Verify the configuration:**
 ```bash
