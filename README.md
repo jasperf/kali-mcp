@@ -45,25 +45,38 @@ docker run -p 8000:8000 kali-mcp-server
 
 ### 🔌 Connecting to Claude Desktop
 
-1. Edit your Claude Desktop config file:
-   - Location: `~/Library/Application Support/Claude/claude_desktop_config.json`
-   - Add this configuration:
-     ```json
-     {
-       "mcpServers": {
-         "kali-mcp-server": {
-           "transport": "sse",
-           "url": "http://localhost:8000/sse",
-           "command": "docker run -p 8000:8000 kali-mcp-server"
-         }
+1. Build the Docker image first:
+   ```bash
+   docker build -t kali-mcp-server .
+   ```
+
+2. Edit your Claude Desktop config file:
+   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+   - **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+3. Add this configuration:
+   ```json
+   {
+     "mcpServers": {
+       "kali-mcp-server": {
+         "command": "docker",
+         "args": ["run", "-i", "kali-mcp-server", "python", "-m", "kali_mcp_server", "--transport", "stdio"]
        }
      }
-     ```
-
-2. Restart Claude Desktop
-3. Test the connection with a simple command:
+   }
    ```
-   /run nmap -F localhost
+
+4. **Completely quit and restart Claude Desktop** (Cmd+Q on macOS, not just close the window)
+
+5. Check the MCP server status in Claude Desktop settings:
+   - Open Claude Desktop
+   - Go to Settings → Developer → Local MCP servers
+   - You should see `kali-mcp-server` listed
+
+6. Test the connection by asking Claude to use the tools:
+   ```
+   Can you run a quick nmap scan on localhost using the run tool?
    ```
 
 ## 🛠️ Available MCP Tools
@@ -379,9 +392,20 @@ Perform comprehensive web application security audit.
 
 ### 🔌 Connection Issues
 
-- Ensure port 8000 is available on your machine
-- Check that the Docker container is running: `docker ps`
-- Verify the URL in Claude Desktop configuration matches the container's port
+**"Server disconnected" or "Failed to connect" errors:**
+1. Ensure Docker is running: `docker ps`
+2. Rebuild the Docker image: `docker build -t kali-mcp-server .`
+3. Check your config uses `stdio` transport (not SSE) as shown above
+4. Completely quit and restart Claude Desktop (Cmd+Q on macOS)
+5. Check Claude Desktop logs:
+   - **macOS**: `~/Library/Logs/Claude/mcp*.log`
+   - **Windows**: `%APPDATA%\Claude\logs\`
+   - **Linux**: `~/.config/Claude/logs/`
+
+**"Unexpected token" or JSON errors:**
+- This usually means the config file has a syntax error
+- Validate your JSON: `cat ~/Library/Application\ Support/Claude/claude_desktop_config.json | python3 -m json.tool`
+- Ensure you're using the stdio transport configuration (not SSE)
 
 ### ⚙️ Command Execution Problems
 
@@ -401,9 +425,9 @@ This container provides access to powerful security tools. Please observe the fo
 
 ## 📋 Requirements
 
-- Docker
-- Claude Desktop or other SSE enabled MCP clients
-- Port 8000 available on your host machine
+- Docker (Docker Desktop or Docker Engine)
+- Claude Desktop (supports MCP protocol)
+- 2GB+ free disk space for the Kali Linux image
 
 ## 👨‍💻 Development
 
